@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+// eslint-disable-next-line
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 
-function App() {
+import ServiceList from "./components/ServiceList.js";
+import ServiceChange from "./components/ServiceChange.js";
+
+export default function App(props) {
+  const url = window.location.pathname;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Router>
+        <Switch>
+          <Route path={`${url}services/:id`} component={ServiceChange} />
+          <Route path={`${url}services`} component={ServiceList} />
+          <Redirect exact from={`${url}`} to={`${url}services`} />
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
-
-export default App;
